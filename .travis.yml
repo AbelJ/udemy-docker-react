@@ -8,3 +8,15 @@ before_install:
 
 script:
     - docker run -e CI=true abeljm/udemy-docker-react npm run test
+
+deploy:
+    provider: elasticbeanstalk
+    region: "ap-southeast-2"
+    app: "udemy-docker-react"
+    env: "UdemyDockerReact-env"
+    bucket_name: "elasticbeanstalk-ap-southeast-2-806911796684" # S3 bucket where Travis will copy to the .zip with all files from Github
+    bucket_path: "udemy-docker-react"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
