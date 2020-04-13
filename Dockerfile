@@ -1,4 +1,7 @@
-FROM node:alpine as builder
+
+# I can't use the alias because of AWS: 
+# FROM node:alpine as builder
+FROM node:alpine
 WORKDIR '/app'
 COPY package.json .
 RUN npm install
@@ -7,4 +10,6 @@ RUN npm run build
 
 FROM nginx
 EXPOSE 80
-COPY --from=builder /app/build /usr/share/nginx/html
+# I can't use the alias because of AWS: 
+#COPY --from=builder /app/build /usr/share/nginx/html
+#COPY --from=0 /app/build /usr/share/nginx/html
